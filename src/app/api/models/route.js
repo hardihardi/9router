@@ -5,7 +5,7 @@ import { getSettings } from "@/lib/localDb";
 import { AI_MODELS } from "@/shared/constants/config";
 import { getProviderAlias } from "@/shared/constants/providers";
 import { getCapabilitiesForModel } from "open-sse/providers/capabilities.js";
-import { fetchSuggestedModelsServer } from "@/app/api/providers/suggested-models/filters.js";
+import { fetchSuggestedModelsServer, onlyFree } from "@/app/api/providers/suggested-models/filters.js";
 import { FREE_PROVIDERS as FREE_PROVIDER_REGISTRY } from "@/shared/constants/providers.js";
 
 // GET /api/models - Get models with aliases. Always dynamic: plugin badges
@@ -109,7 +109,7 @@ export async function GET() {
     );
     const addedLive = [];
     for (const [alias, , liveModels] of liveFree) {
-      for (const live of liveModels) {
+      for (const live of onlyFree(liveModels)) {
         const fullModel = `${alias}/${live.id}`;
         if (seenFull.has(fullModel)) continue;
         seenFull.add(fullModel);

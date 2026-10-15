@@ -1321,31 +1321,57 @@ export default function ProviderDetailPage() {
           const notAdded = suggestedModels.filter(
             (m) => !addedFullModels.has(`${providerStorageAlias}/${m.id}`) && !hardcodedIds.has(m.id)
           );
+          // Free ids first with their badge, paid ids below under their own
+          // heading. A row without the flag (older data) counts as paid so a
+          // paid model can never wear the free badge by accident.
+          const freeSuggested = notAdded.filter((m) => m.isFree === true);
+          const paidSuggested = notAdded.filter((m) => m.isFree !== true);
           // Keep the block alive when a refresh failed: an empty chip list with
           // no explanation reads as "there are no free models", which is not
           // what happened - the note under the heading carries the reason.
           if (notAdded.length === 0 && !suggestedModelsError) return null;
           return (
             <div className="w-full mt-2">
-              <p className="text-xs text-text-muted mb-2">Suggested free models:</p>
+              <p className="text-xs text-text-muted mb-2">Suggested free models ({freeSuggested.length}):</p>
               {suggestedModelsError && (
                 <p className="text-[11px] text-amber-600 dark:text-amber-400 mb-2">{suggestedModelsError}</p>
               )}
               <div className="flex flex-wrap gap-2">
-                {notAdded.map((m) => (
+                {freeSuggested.map((m) => (
                   <button
                     key={m.id}
                     onClick={async () => {
                       await handleAddCustomModel(m.id, "llm", providerStorageAlias);
                     }}
-                    className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-black/10 dark:border-white/10 text-xs text-text-muted hover:text-primary hover:border-primary/40 hover:bg-primary/5 transition-colors"
+                    className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-green-500/30 dark:border-green-500/25 text-xs text-text-muted hover:text-primary hover:border-primary/40 hover:bg-primary/5 transition-colors"
                     title={m.contextLength != null ? `${m.name} · ${(m.contextLength / 1000).toFixed(0)}k ctx` : m.name}
                   >
                     <span className="material-symbols-outlined text-[13px]">add</span>
                     {m.id.split("/").pop()}
+                    <span className="text-[10px] font-bold text-green-600 dark:text-green-400 bg-green-500/10 px-1.5 py-0.5 rounded">FREE</span>
                   </button>
                 ))}
               </div>
+              {paidSuggested.length > 0 && (
+                <>
+                  <p className="text-xs text-text-muted mt-3 mb-2">Other models ({paidSuggested.length}):</p>
+                  <div className="flex flex-wrap gap-2">
+                    {paidSuggested.map((m) => (
+                      <button
+                        key={m.id}
+                        onClick={async () => {
+                          await handleAddCustomModel(m.id, "llm", providerStorageAlias);
+                        }}
+                        className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-black/10 dark:border-white/10 text-xs text-text-muted hover:text-primary hover:border-primary/40 hover:bg-primary/5 transition-colors"
+                        title={m.contextLength != null ? `${m.name} · ${(m.contextLength / 1000).toFixed(0)}k ctx` : m.name}
+                      >
+                        <span className="material-symbols-outlined text-[13px]">add</span>
+                        {m.id.split("/").pop()}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
           );
         })()}

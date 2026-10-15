@@ -21,7 +21,7 @@ import { resolveZedModels } from "open-sse/shared/zedAuth.js";
 import { updateProviderCredentials } from "@/sse/services/tokenRefresh";
 import { resolveConnectionProxyConfig } from "@/lib/network/connectionProxy";
 import { capabilitiesFromServiceKind, getCapabilitiesForModel, aggregateComboCapabilities } from "open-sse/providers/capabilities.js";
-import { fetchSuggestedModelsServer } from "@/app/api/providers/suggested-models/filters.js";
+import { fetchSuggestedModelsServer, onlyFree } from "@/app/api/providers/suggested-models/filters.js";
 
 // Qoder shares one live resolver across intl (qoder) and CN (qoder-cn); the
 // credentials carry the provider id so qoderModels picks the right region's
@@ -675,7 +675,7 @@ export async function buildModelsList(kindFilter, options = {}) {
     })
   );
   for (const [alias, liveModels] of liveFreeLists) {
-    for (const live of liveModels) {
+    for (const live of onlyFree(liveModels)) {
       if (isDisabled(alias, live.id)) continue;
       const caps = getCapabilitiesForModel(alias, live.id);
       const entry = {

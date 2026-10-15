@@ -1,7 +1,30 @@
+# v0.5.184 (2026-10-15) · 4 commits
+
+## Features
+
+- **Provider panel: full catalogue with a FREE badge.** The suggested list on the OpenCode Free page now shows every upstream model (87) instead of only ids ending in `-free`, which had hidden free models without the suffix - `big-pickle` is now allowlisted as known-free and verified 200 on the free tier. Free models are grouped first (12) with a green FREE badge and paid models sit under a separate "Other models" heading, so the two can never be read as one list.
+
+## Fixes
+
+- **Free-tier consumers stay on the free subset.** `/api/models`, `/api/v1/models`, `ModelSelectModal` and `freeCatalogSync` now filter on the new `isFree` flag through a single `onlyFree` helper, so widening the suggested list cannot advertise paid ids that answer 401 without a key.
+
+# v0.5.183 (2026-10-15) · 1 commit
+
+## Fixes
+
+- **Suggested model list: bypass Next.js fetch for free catalogues.** The live catalogue lookups in `/api/providers/suggested-models` and its server-side fetcher now use undici directly. The server-side global fetch is Next.js's patched copy, which swallowed abort signals and let the upstream call hang until the outer ceiling answered with the curated fallback - the panel then showed only built-in models instead of the live list.
+
+# v0.5.182 (2026-10-15) · 1 commit
+
+## Fixes
+
+- **Suggested model list: hard request ceiling.** `/api/providers/suggested-models` and its server-side fetcher now race the whole lookup against a fixed timeout. A stalled await previously held the route open indefinitely and left the provider panel blank; it now answers the curated fallback list instead.
+
 # v0.5.181 (2026-10-15) · 1 commit
 
-### Features
-- **Update Banner**: Restyle update notification banner with modern glassmorphism glow, amber/gold accent badge, and responsive flex layout for mobile and desktop -Custom
+## Fixes
+
+- **Reverted the update banner restyle.** The glassmorphism/amber-glow banner from `9bddda9` was rolled back to the original dashboard banner, restoring the upstream look and the previous markup and styling.
 
 # v0.5.180 (2026-10-15) · 1 commit
 

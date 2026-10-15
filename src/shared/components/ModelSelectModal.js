@@ -179,7 +179,9 @@ export default function ModelSelectModal({
     Promise.all(
       targets.map(async ([id, fetcher]) => {
         const { data } = await fetchSuggestedModels(fetcher);
-        return [id, Array.isArray(data) ? data : []];
+        // The provider panel needs the whole catalogue, but this picker only
+        // offers free-tier ids: the paid ones answer 401 without a key.
+        return [id, Array.isArray(data) ? data.filter((m) => m?.isFree === true) : []];
       })
     ).then((lists) => {
       if (cancelled) return;
