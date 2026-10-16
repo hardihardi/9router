@@ -1,3 +1,13 @@
+# v0.5.193 (2026-10-16) · 2 commits
+
+## What Was Fixed
+
+- **Prompt Injection page in English**: every Indonesian label, helper text,
+  empty state and guide panel on the AI Gateway Prompt Injection page is now
+  English, matching the rest of the dashboard. The Bahasa Indonesia persona
+  template keeps forcing Indonesian output, but its own name and description
+  are English.
+
 # v0.5.192 (2026-10-16) · 2 commits
 
 ## What Was Removed

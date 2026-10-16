@@ -17,49 +17,49 @@ import { useCopyToClipboard } from "@/shared/hooks/useCopyToClipboard";
 const PRESET_TEMPLATES = [
   {
     name: "Bahasa Indonesia Persona",
-    description: "Memastikan respons selalu dalam Bahasa Indonesia yang alami dan profesional",
+    description: "Keeps every response in natural, professional Bahasa Indonesia",
     position: "system_prepend",
-    content: "Instruksi Penting: Berikan seluruh jawaban dan penjelasan dalam Bahasa Indonesia yang fasih, sopan, dan mudah dipahami, kecuali jika pengguna secara eksplisit meminta bahasa lain.",
+    content: "IMPORTANT: Give all answers and explanations in fluent, polite, easy-to-understand Bahasa Indonesia, unless the user explicitly requests another language.",
   },
   {
     name: "Senior Software Engineer",
-    description: "Standar kode berkualitas tinggi, modular, dan penjelasan ringkas",
+    description: "High-quality, modular code with concise explanations",
     position: "system_prepend",
     content: "You are a Principal Software Engineer. Write clean, idiomatic, and production-ready code with strong error handling and type safety. Keep theoretical commentary minimal and prioritize actionable, robust code solutions.",
   },
   {
     name: "Strict JSON Output Enforcer",
-    description: "Memaksa format output berupa JSON valid murni tanpa markdown wrapping",
+    description: "Forces the output to be pure valid JSON with no markdown wrapping",
     position: "system_append",
     content: "CRITICAL REQUIREMENT: Output strictly valid JSON with no introductory text, no conversational wrap-up, and no markdown code fences (` ```json `). The response must be directly parseable by JSON.parse().",
   },
   {
     name: "Concise & Terse Answers",
-    description: "Memangkas basa-basi dan langsung ke inti jawaban",
+    description: "Cuts the small talk and gets straight to the answer",
     position: "system_append",
     content: "Be direct, concise, and terse. Do not include pleasantries, filler phrases, or restate the question. Answer the core request immediately.",
   },
   {
     name: "Security & Secret Redaction Guard",
-    description: "Mencegah pembocoran API key, token, dan kredensial rahasia",
+    description: "Stops API keys, tokens and secret credentials from leaking",
     position: "system_prepend",
     content: "Security Policy: Never reveal, generate, or reflect actual API keys, private credentials, database passwords, or secret environment variables in your responses. If asked for secrets, redact them with [REDACTED].",
   },
 ];
 
 const POSITION_LABELS = {
-  system_prepend: { label: "Prepend System", badge: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20", icon: "arrow_upward", desc: "Sisipkan di awal system prompt" },
-  system_append: { label: "Append System", badge: "bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20", icon: "arrow_downward", desc: "Sisipkan di akhir system prompt" },
-  system_override: { label: "Override System", badge: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20", icon: "restart_alt", desc: "Ganti seluruh system prompt asli" },
-  user_prepend: { label: "Prepend User", badge: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20", icon: "north_west", desc: "Sisipkan di depan pesan user terakhir" },
-  user_append: { label: "Append User", badge: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20", icon: "south_east", desc: "Sisipkan di belakang pesan user terakhir" },
+  system_prepend: { label: "Prepend System", badge: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20", icon: "arrow_upward", desc: "Insert at the start of the system prompt" },
+  system_append: { label: "Append System", badge: "bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20", icon: "arrow_downward", desc: "Insert at the end of the system prompt" },
+  system_override: { label: "Override System", badge: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20", icon: "restart_alt", desc: "Replaces the entire original system prompt" },
+  user_prepend: { label: "Prepend User", badge: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20", icon: "north_west", desc: "Inserts before the last user message" },
+  user_append: { label: "Append User", badge: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20", icon: "south_east", desc: "Inserts after the last user message" },
 };
 
 const TARGET_TYPE_LABELS = {
-  all: { label: "Global (All Traffic)", desc: "Berlaku untuk semua request model & combo di gateway" },
-  combos: { label: "Specific Combos", desc: "Hanya berlaku jika request ditujukan ke combo tertentu" },
-  models: { label: "Specific Models", desc: "Hanya berlaku untuk model atau pola model tertentu" },
-  custom: { label: "Custom (Both)", desc: "Kombinasi model dan combo tertentu" },
+  all: { label: "Global (All Traffic)", desc: "Applies to every model and combo request on the gateway" },
+  combos: { label: "Specific Combos", desc: "Applies only when the request targets a specific combo" },
+  models: { label: "Specific Models", desc: "Applies only to a specific model or model pattern" },
+  custom: { label: "Custom (Both)", desc: "A specific combination of models and combos" },
 };
 
 export default function PromptInjectionPage() {
@@ -83,7 +83,7 @@ export default function PromptInjectionPage() {
   const [showPlayground, setShowPlayground] = useState(false);
   const [testTarget, setTestTarget] = useState("");
   const [testApiKey, setTestApiKey] = useState("");
-  const [testUserMsg, setTestUserMsg] = useState("Tuliskan fungsi helper untuk sorting array objek.");
+  const [testUserMsg, setTestUserMsg] = useState("Write a helper function that sorts an array of objects.");
   const [testSystemMsg, setTestSystemMsg] = useState("You are an AI assistant.");
   const [testResult, setTestResult] = useState(null);
   const [testing, setTesting] = useState(false);
@@ -480,7 +480,7 @@ export default function PromptInjectionPage() {
             </Badge>
           </div>
           <p className="text-xs text-text-muted mt-1 max-w-2xl">
-            Gateway-level prompt manipulation: inject, prepend, append, atau override instruksi system dan pesan prompt pada model atau combo tertentu secara transparan sebelum request diteruskan ke provider.
+            Gateway-level prompt manipulation: inject, prepend, append, or override system instructions and prompt messages for a specific model or combo, transparently, before the request is passed to the provider.
           </p>
         </div>
 
@@ -815,20 +815,20 @@ export default function PromptInjectionPage() {
       <div className="mt-2 rounded-xl border border-border-subtle bg-surface-1 p-4 flex flex-col gap-2">
         <div className="flex items-center gap-2 text-xs font-semibold text-text-main">
           <span className="material-symbols-outlined text-[16px] text-primary">info</span>
-          Panduan Prompt Injection AI Gateway
+          AI Gateway Prompt Injection Guide
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-[11px] text-text-muted mt-1 leading-relaxed">
           <div className="p-2.5 rounded-lg bg-surface-2 border border-border-subtle">
-            <span className="font-semibold text-text-main block mb-1">1. Format Injeksi Fleksibel</span>
-            Mendukung 5 mode penempatan: <code>Prepend System</code>, <code>Append System</code>, <code>Override System</code>, <code>Prepend User</code>, dan <code>Append User</code> yang otomatis diterjemahkan ke format OpenAI, Claude, dan Gemini.
+            <span className="font-semibold text-text-main block mb-1">1. Flexible Injection Formats</span>
+            Supports 5 placement modes: <code>Prepend System</code>, <code>Append System</code>, <code>Override System</code>, <code>Prepend User</code>, and <code>Append User</code>, translated automatically into OpenAI, Claude and Gemini formats.
           </div>
           <div className="p-2.5 rounded-lg bg-surface-2 border border-border-subtle">
-            <span className="font-semibold text-text-main block mb-1">2. Target Spesifik &amp; Wildcard</span>
-            Terapkan aturan pada Combo tertentu (misal: <code>my-combo</code>) atau Model (misal: <code>claude-3-7-sonnet</code>, <code>openai/*</code>, atau wildcard <code>*</code>).
+            <span className="font-semibold text-text-main block mb-1">2. Specific Targets &amp; Wildcards</span>
+            Apply a rule to a specific Combo (e.g. <code>my-combo</code>) or Model (e.g. <code>claude-3-7-sonnet</code>, <code>openai/*</code>, or the wildcard <code>*</code>).
           </div>
           <div className="p-2.5 rounded-lg bg-surface-2 border border-border-subtle">
-            <span className="font-semibold text-text-main block mb-1">3. Variabel Dinamis</span>
-            Gunakan template variabel bawaan seperti <code>{"{{model}}"}</code>, <code>{"{{provider}}"}</code>, <code>{"{{date}}"}</code>, dan <code>{"{{time}}"}</code> yang akan dievaluasi secara otomatis saat request masuk.
+            <span className="font-semibold text-text-main block mb-1">3. Dynamic Variables</span>
+            Use the built-in variable templates <code>{"{{model}}"}</code>, <code>{"{{provider}}"}</code>, <code>{"{{date}}"}</code>, and <code>{"{{time}}"}</code>, evaluated automatically when a request arrives.
           </div>
         </div>
       </div>
@@ -894,7 +894,7 @@ export default function PromptInjectionPage() {
             <Input
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              placeholder="Catatan ringkas tujuan injeksi ini..."
+              placeholder="Short note on what this injection is for..."
             />
           </div>
 
@@ -928,11 +928,11 @@ export default function PromptInjectionPage() {
                   <span className="material-symbols-outlined text-[16px] text-sky-500">layers</span>
                   Target Combos ({formData.targetCombos.length})
                 </label>
-                <span className="text-[11px] text-text-muted">Pilih combo yang ingin diinjeksi</span>
+                <span className="text-[11px] text-text-muted">Choose the combo to inject into</span>
               </div>
 
               {combos.length === 0 ? (
-                <p className="text-xs text-text-muted italic">Belum ada combo yang dibuat di sistem.</p>
+                <p className="text-xs text-text-muted italic">No combos have been created yet.</p>
               ) : (
                 <div className="flex flex-wrap gap-1.5 mt-1">
                   {combos.map((c) => {
@@ -1033,13 +1033,13 @@ export default function PromptInjectionPage() {
                 Target API Keys (Optional)
               </label>
               <span className="text-[11px] text-text-muted">
-                {formData.targetKeys.length === 0 ? "Semua API Key (Traffic Global)" : `${formData.targetKeys.length} API key dipilih`}
+                {formData.targetKeys.length === 0 ? "All API Keys (Global Traffic)" : `${formData.targetKeys.length} API keys selected`}
               </span>
             </div>
 
             {apiKeys.length === 0 ? (
               <p className="text-xs text-text-muted italic">
-                Belum ada API Key dibuat. Injeksi akan berlaku untuk semua request gateway.
+                No API keys created yet. The injection applies to every gateway request.
               </p>
             ) : (
               <div className="flex flex-col gap-2 mt-1">
@@ -1055,7 +1055,7 @@ export default function PromptInjectionPage() {
                   >
                     All API Keys (Default)
                   </button>
-                  <span className="text-[11px] text-text-muted">atau pilih kunci tertentu:</span>
+                  <span className="text-[11px] text-text-muted">or pick specific keys:</span>
                 </div>
 
                 <div className="flex flex-wrap gap-1.5 max-h-28 overflow-y-auto custom-scrollbar">
@@ -1114,7 +1114,7 @@ export default function PromptInjectionPage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {[
                 { type: "always", label: "Always Active", desc: "Setiap request tanpa filter teks" },
-                { type: "contains", label: "Contains Keywords", desc: "Jika prompt memuat kata tertentu" },
+                { type: "contains", label: "Contains Keywords", desc: "When the prompt contains a given word" },
                 { type: "regex", label: "Regex Pattern", desc: "Jika prompt cocok pola RegExp" },
               ].map((opt) => (
                 <button
@@ -1141,7 +1141,7 @@ export default function PromptInjectionPage() {
             {formData.matchCondition.type === "contains" && (
               <div className="flex flex-col gap-1.5 mt-1">
                 <label className="text-[11px] font-medium text-text-muted">
-                  Kata Kunci (Pisahkan dengan koma jika lebih dari satu):
+                  Keywords (separate with commas if there is more than one):
                 </label>
                 <Input
                   value={formData.matchCondition.pattern}
@@ -1202,7 +1202,7 @@ export default function PromptInjectionPage() {
                       }
                       className="rounded border-border-subtle text-primary focus:ring-0"
                     />
-                    Case sensitive (default flag /i jika tidak dicentang)
+                    Case sensitive (the /i flag is the default when unchecked)
                   </label>
                 </div>
               </div>
@@ -1254,7 +1254,7 @@ export default function PromptInjectionPage() {
             <textarea
               value={formData.content}
               onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-              placeholder="Ketik teks prompt yang ingin diinjeksikan secara otomatis..."
+              placeholder="Type the prompt text to inject automatically..."
               rows={6}
               className="w-full px-3 py-2 text-xs font-mono rounded-xl border border-border-subtle bg-surface-2 text-text-main focus:outline-none focus:border-primary/50 leading-relaxed custom-scrollbar"
               required
@@ -1322,7 +1322,7 @@ export default function PromptInjectionPage() {
         onClose={() => setDeletingRule(null)}
         onConfirm={handleDeleteConfirm}
         title="Delete Prompt Injection Rule"
-        message={`Are you sure you want to delete "${deletingRule?.name}"? Permintaan selanjutnya tidak akan lagi menerima injeksi prompt ini.`}
+        message={`Are you sure you want to delete "${deletingRule?.name}"? Subsequent requests will no longer receive this prompt injection.`}
         confirmText="Delete Rule"
         variant="danger"
       />
@@ -1336,7 +1336,7 @@ export default function PromptInjectionPage() {
       >
         <div className="flex flex-col gap-4">
           <p className="text-xs text-text-muted">
-            Uji bagaimana request diproses dan dimodifikasi oleh aturan injeksi gateway sebelum benar-benar dikirim ke model upstream.
+            Test how a request is processed and modified by the gateway injection rules before it actually reaches the upstream model.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
