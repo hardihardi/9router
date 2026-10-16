@@ -1,3 +1,18 @@
+# v0.5.194 (2026-10-16) · 2 commits
+
+## What Was Fixed
+
+- **Change Log categories show their colors again**: the reader-facing
+  headings this fork writes (`What's New`, `What Changed`, `What Was Fixed`,
+  `What Was Removed`, `What Was Undone`) were missing from the category map,
+  so every pill fell back to the same grey. Each one now maps to its colored
+  category with its own icon.
+- **Change Log icons no longer blank**: every category and bullet icon is now
+  a glyph the shipped icon subset carries, verified against the subset list.
+- **Change Log shell follows the theme**: the modal frame, tab switcher and
+  close button used raw black/white washes; they now use the same theme tokens
+  as the notification bell.
+
 # v0.5.193 (2026-10-16) · 2 commits
 
 ## What Was Fixed
