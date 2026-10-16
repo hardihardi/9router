@@ -21,11 +21,11 @@ const SEVERITY_STYLE = {
  * derives. A key-signed session gets nothing - these messages describe this
  * install, not the caller's own key.
  *
- * Live long tasks live here too, through NotifToast: the import progress the
- * operator used to read off a card floating over the table now has a home in
- * the bell. The floating card keeps working (TaskDock + LongTaskBanner) as
- * the transient signal; this is where the progress lives, and picking a row
- * brings the card back through the existing reveal.
+ * Live long tasks live here too, through NotifToast. The import progress the
+ * operator used to read off a card floating over the table covered the very
+ * page they were trying to work on, so that dock is gone: every long
+ * operation reports into the task store and surfaces here. Progress is
+ * visible while this menu is open, and the badge says the rest of the time.
  */
 export default function NotificationBell() {
   const role = useSessionStore((state) => state.role);
@@ -133,7 +133,6 @@ export default function NotificationBell() {
   // a derived .map(): a derived array is a new reference every render, which
   // re-subscribes the component on every paint and loops the page to death.)
   const tasks = useTaskStore((state) => state.tasks);
-  const taskIds = useMemo(() => tasks.map((t) => t.id), [tasks]);
   const live = useMemo(() => mergeLiveTasks(tasks, jobs), [tasks, jobs]);
   // Unread notices plus live tasks: an import still running keeps its badge
   // after the operator has read every notice, which is the case that made the
@@ -158,19 +157,16 @@ export default function NotificationBell() {
     }
   };
 
-  // Picking a live task brings its banner back instead of rendering a second
-  // copy of it.
+  // A row is a status readout: with the floating dock gone there is nothing to
+  // expand, so picking one only helps when it can take the operator to the
+  // page that owns the run.
   const handlePick = (task) => {
     setOpen(false);
-    // The reveal notifies banners that are already mounted (see the reveal
-    // subscription in LongTaskBanner), so a run on this page expands in place
-    // instead of staying collapsed in the corner.
+    // A page-level banner the operator had collapsed comes back, so the run
+    // they opened the bell for is on screen again.
     revealBackgroundedTasks();
-    if (!taskIds.includes(task.id) && typeof window !== "undefined") {
-      // No banner is mounted for this run: the page that owns it is closed.
-      // Navigation lands where the operator started the run, so the task
-      // store reconnects and the banner reopens on the run itself.
-      window.location.assign(task.href || "/dashboard/proxy-pools");
+    if (task.href && typeof window !== "undefined") {
+      window.location.assign(task.href);
     }
   };
 

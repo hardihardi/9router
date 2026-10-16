@@ -1,3 +1,21 @@
+# v0.5.192 (2026-10-16) · 2 commits
+
+## What Was Removed
+
+- **Floating task dock**: the newest long task used to take a full-screen
+  overlay and older ones stacked as cards in the bottom-right corner, covering
+  the page being worked on. `TaskDock.js` is deleted and the layout no longer
+  mounts it.
+
+## What Changed
+
+- **Live tasks live in the notification bell**: every long operation already
+  reported into the task store, which the bell reads through `NotifToast`.
+  With the dock gone the bell is the single place progress appears, and its
+  badge keeps counting running tasks after notices are read.
+- **Bell rows go back to the run's owner**: store tasks now carry the page
+  driving them, so picking a row opens that page when it is no longer open.
+
 # v0.5.191 (2026-10-16) · 4 commits
 
 ## What's New

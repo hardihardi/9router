@@ -7,8 +7,7 @@ import { useTaskStore } from "@/store/taskStore";
 /**
  * Merge the two live-task sources into one queue for the bell.
  *
- * The task store is what the floating banner (TaskDock / LongTaskBanner)
- * renders, so it is the fresher copy: a polled server job whose task id is
+ * The task store is the fresher copy: a polled server job whose task id is
  * already a task in the store is dropped, or one run would show twice - two
  * rows, two percents, two places to click. What is left from the poll is a
  * run whose owning page is closed and never adopted it into the store, which
@@ -24,7 +23,9 @@ export function mergeLiveTasks(tasks, jobs) {
     // A task is in the store only while it runs; the caller's finally{} removes
     // it, so presence is the state.
     state: "running",
-    href: null,
+    // Where this run is driven from, so a row can still take the operator back
+    // to it once the page that started it is closed.
+    href: t.href || null,
   }));
   for (const job of Array.isArray(jobs) ? jobs : []) {
     if (!job || !job.taskId || seen.has(job.taskId)) continue;
@@ -51,7 +52,7 @@ function percentOf(progress) {
 
 /**
  * The bell's live-task surface: title, done/total, a percent bar and the task
- * state, read straight from the task store the floating banner uses.
+ * state, read straight from the task store the operations report into.
  *
  * A direct subscription, not a prop: the point of this surface is that a task
  * started on any page appears in the bell at the same paint the banner gets
