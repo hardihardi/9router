@@ -47,6 +47,7 @@ export default {
   models: [
     { id: "gemini-4-argon", name: "Gemini 4 Argon", upstreamModelId: "argon-4p0" },
     { id: "gemini-4-argon-thinking", name: "Gemini 4 Argon (Thinking)", upstreamModelId: "argon-4p0" },
+    { id: "gemini-4-argon-high", name: "Gemini 4 Argon (High)", upstreamModelId: "gemini-4-argon-high(high)" },
     { id: "gemini-3.8-flash-high", name: "Gemini 3.8 Flash (High)", upstreamModelId: "gemini-3.8-flash-high(high)" },
     { id: "gemini-3.8-flash-medium", name: "Gemini 3.8 Flash (Medium)", upstreamModelId: "gemini-3.8-flash-medium(medium)" },
     { id: "gemini-3.8-flash-low", name: "Gemini 3.8 Flash (Low)", upstreamModelId: "gemini-3.8-flash-low(low)" },

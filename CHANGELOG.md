@@ -1,3 +1,129 @@
+# v0.5.191 (2026-10-16) · 4 commits
+
+## What's New
+
+- **AI Gateway Prompt Injection** (PR #8, by SatriaDivo): gateway rules that
+  prepend, append or override system and user prompts across combos, models
+  (wildcards supported) or all traffic, with per-key restriction, keyword and
+  regex triggers, dynamic templating and a dashboard simulator, applied to
+  live chat requests fail-open behind the feature flag -Custom
+
+## What Was Fixed
+
+- **PR #8 test**: its own suite called `extractUserText` without importing
+  it (12/13 green); one-line import added, now 13/13 -Custom
+
+# v0.5.190 (2026-10-16) · 1 commit
+
+## What Was Undone
+
+- **Compare Models restored**: the original view is back, undoing the task 6
+  redesign on request. The `.arena-sticky` CSS block the redesign introduced
+  goes with it, since nothing references it any more.
+
+# v0.5.189 (2026-10-16) · 1 commit
+
+## What Was Fixed
+
+- **Compare Models composer in glass**: the pinned band carried an opaque
+  `#0b0e14` plate that buried the aurora behind it. It now uses the same frost
+  and blur as the sidebar, so the composer follows the active theme. An audit
+  of the arena page found no other hardcoded colour - every class is a theme
+  token. (Undone by the v0.5.190 revert.)
+
+# v0.5.188 (2026-10-16) · 20 commits
+
+## What Was Removed
+
+- **PRD Builder** is gone from the dashboard: route, sidebar entry and UI removed, with a forward migration that drops its tables on live installs while migration 003 stays in place -Custom
+
+## What's New
+
+- **Update banner** restyled to the welcome banner's card language - header row, accent, action row - keeping version, behind-by and release-notes text -Custom
+- **Compare Models** redesigned as a sticky composer with side-by-side columns, real idle/running/done/error states, proper empty and error states and a stacked mobile layout -Custom (**reverted in v0.5.190** on request; the original view is live)
+- **Custom plugins reach the request**: enabled plugins inject their instruction text into the system prompt with explicit delimiters; no change when nothing is enabled, no duplicate block when enabled twice -Custom
+- **Plugin marks on models**: a model with a custom plugin enabled shows that plugin's mark beside its name, matched by the same rule the request path uses -Custom
+- **Long-task progress** moved into the notification bell as a Tasks section with percent bars; the bell badge counts live tasks, the floating card stays as the transient signal -Custom
+
+## What Changed
+
+- **Add OpenAI Compatible button** is now an opt-in white variant, legible on both dark and glass -Custom
+- **Responsive contract**: PageShell owns page padding, max-width and vertical rhythm, wide tables scroll horizontally instead of clipping, modals scroll internally and the drawer can no longer exceed a phone viewport -Custom
+- **Plugin marks redrawn** to match each plugin's function inside the existing 24x24 drawing language -Custom
+
+# v0.5.187 (2026-10-16) · 2 commits
+
+## What Was Fixed
+
+- **Theme colour audit**: eight colour tokens that four hundred call sites referenced but the theme never declared (`bg-bg-subtle`, `text-text-primary`, `border-border-hover` and five more) are now defined for both dark and glass, so those surfaces finally render -Custom
+- **Themed scrims and panels**: raw `bg-black/NN` overlays, `zinc`/`white` dark-only panels and hex status icons replaced with theme tokens (scrim, surface, danger, success/warning) so modals, banners and cards follow the selected theme -Custom
+
+# v0.5.186 (2026-10-16) · 3 commits
+
+## What's New
+
+- **Design-token contract** landed at `src/shared/styles/chrome.css`: one radius ladder, a three-tier elevation scale, one motion/focus/disabled definition shared by the whole chrome layer -Custom
+
+## What Changed
+
+- **Card / Modal / Drawer / Select / Input / Toggle / Badge / Tooltip / Pagination / SegmentedControl** consume the contract instead of hardcoded radii, shadows and durations, so overlays and surfaces read as one system -Custom
+
+## What Was Fixed
+
+- **Nested modal scroll** is reference-counted in `src/shared/utils/scrollLock.js`; closing an inner dialog no longer re-enables page scroll behind the outer one -Custom
+
+# v0.5.185 (2026-10-15) · 34 commits
+## Features
+
+- **Gemini 4 Argon** is now available on the `gemini`, `vertex` and `antigravity` providers, including 1M-token context, thinking control and global Vertex routing -Custom
+- **Nous Research** joins the provider list with OAuth login and a free tier -Custom
+- **Cursor IDE quota** is tracked through DashboardService, covering both the spend bucket and the request bucket -Custom
+- **Quota auto-ping** runs on a single unified mode selector and defaults to local time, with DST-aware conversion and an anchored schedule at fixed local times (#4848) -Custom
+- **Model picker** gained regex and negation search, batch select, provider filtering and wildcard patterns -Custom
+- **Kiro** wires the AWS Identity Center device flow into provider OAuth (#587) -Custom
+- **Hermes audio transcription** is available as a CLI tool through 9Router (#4763) -Custom
+- **Antigravity** IDE version bumped to 2.22.0 -Custom
+- **Cursor Auto (Server Picks)** resolves to the account's default agent model instead of failing (#4692) -Custom
+- **Qoder** add-on (free-credit promo) quota appears in the quota tracker, with a "See details" pointer when the API exposes no reset date (#4758) -Custom
+- **OpenCode Free capabilities** advertise the missing reasoning entries (space-bunny and friends) -Custom
+- **Nous API-key attribution tags** are attached to requests (#4770) -Custom
+
+## Fixes
+
+- **OpenCode free tier** moved to `/inference/v1` with the v2 client fingerprint, which restores models that answered 403 after the endpoint change (#4842) -Custom
+- **OpenCode Zen** uses the attested free-tier identity for `-free` models on the keyed lane (#4784) -Custom
+- **OpenCode Zen** injects a `reasoning_content` placeholder so multi-turn Zen chats no longer fail on the first follow-up (#4805) -Custom
+- **OpenCode Zen** verifies the inverted timestamp inside translated session IDs (#4780) - this was already satisfied in the fork by `generateSessionId()`, so no code change was needed -Custom
+- **`claude-haiku-5-5`** on `opencode-go` routes to `/messages` with adaptive thinking (#4727) -Custom
+- **Combos** fall back when a model answers HTTP 200 with zero usable content (#4750) -Custom
+- **Gemini 4** drops sampling parameters and orders `functionResponse` last (#4802) -Custom
+- **Vertex** honours API-key project/location for Gemini 4 Argon (#4821) -Custom
+- **Copilot embeddings** route to `api.githubcopilot.com` (#4793) -Custom
+- **Translator** returns Claude messages for forced SSE JSON responses instead of failing to parse them (#4789) -Custom
+- **Headroom** no longer raises false compression warnings when tools dominate the body (#4855) -Custom
+- **`gpt-5.5`** retired from the Codex registry, image list and auto-ping, since the model now answers 400 -Custom
+- **`/v1/models`** exposes no-auth free providers and prunes custom models when their node is deleted -Custom
+- **Usage stats** fall back to the input-token row and mask API keys stably between renders -Custom
+- **Cursor** holds `strictProxy` on the AgentService h2 path (#4696) and recovers long sessions from empty AgentService turns (#4690) -Custom
+- **Claude models** advertise PDF input support (#4761) -Custom
+- **`response_format`** dropped for `opencode-go` deepseek models, which reject it -Custom
+- **Dashboard** unclips the proxy dropdown and tooltips by rendering them through a body portal -Custom
+- **QuotaTable** closes the reset-time wrapper `</div>`; the upstream reset redesign left the keyed row wrapper unbalanced and the unbalanced JSX aborted the whole usage build -Custom
+- **Tests** isolate the zed-native-auth `DATA_DIR` so a full-suite run no longer writes a real connection into the live database -Custom
+
+## Internal
+
+- `Co-Authored-By` trailers are stripped from every ported commit so the fork keeps a single, consistent authorship trail -Custom
+- Conflict markers introduced by the merge are removed before committing, and every ported file is verified to parse -Custom
+
+## Skipped
+
+The following upstream commits in the v0.5.104 range were deliberately not ported:
+
+- `2aa9307f` / `6ed88685` - per-key token quotas and pattern-based model access, which upstream reverted in the same range (net zero)
+- `3c48d275` - an unlabelled bookkeeping commit with no functional content
+- `87a74e1b` - the upstream release-note commit; this fork maintains its own CHANGELOG
+
 # v0.5.184 (2026-10-15) · 4 commits
 
 ## Features

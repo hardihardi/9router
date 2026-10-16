@@ -1,4 +1,5 @@
 import opencodeRegistry from "open-sse/providers/registry/opencode.js";
+import { normalizeNousFreeModels } from "open-sse/services/nous.js";
 
 // Free OpenCode models that don't use the "-free" id suffix. big-pickle answers
 // 200 on the free tier (verified 2026-10-15); union-alpha is a curated free id
@@ -111,6 +112,8 @@ export const FILTERS = {
       .filter((m) => (m.tier === "free" || m.id?.endsWith(":free")) && m.supports_chat === true && (!m.media_type || m.media_type === "chat" || m.media_type === "text"))
       .map((m) => ({ id: m.id, name: m.name || m.id, contextLength: m.context_length }))
       .sort((a, b) => String(a.id).localeCompare(String(b.id))),
+
+  "nous-free": normalizeNousFreeModels,
 };
 
 // ---------------------------------------------------------------------------

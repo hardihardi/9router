@@ -342,6 +342,17 @@ export async function buildModelsList(kindFilter, options = {}) {
     }
   }
 
+  // Include no-auth free providers (e.g. opencode) so their models are exposed in /v1/models
+  for (const [id, provider] of Object.entries(FREE_PROVIDERS || {})) {
+    if (provider?.noAuth && !activeConnectionByProvider.has(id)) {
+      activeConnectionByProvider.set(id, {
+        id: "noauth",
+        provider: id,
+        isActive: true,
+      });
+    }
+  }
+
   const models = [];
 
   // Lookup map so aggregateComboCapabilities can recursively resolve nested combos
@@ -401,7 +412,7 @@ export async function buildModelsList(kindFilter, options = {}) {
       if (!providerMatchesKinds(providerId, kindFilter)) continue;
       for (const model of providerModels) {
         if (!kindFilter.includes(modelKind(model))) continue;
-        if (isDisabled(alias, model.id)) continue;
+        if (isDisabled(alias, model.id) || isDisabled(providerId, model.id)) continue;
         if (studioTargets.isStudioTarget([providerId, alias], model.id)) continue;
         models.push({
           id: `${alias}/${model.id}`,
@@ -574,7 +585,7 @@ export async function buildModelsList(kindFilter, options = {}) {
         // imageToText custom models stay in the LLM list (vision-capable chat models)
         const allowAsLlm = kind === "imageToText" && kindFilter.includes(LLM_KIND);
         if (!kindFilter.includes(kind) && !allowAsLlm) continue;
-        if (isDisabled(outputAlias, modelId) || isDisabled(staticAlias, modelId)) continue;
+        if (isDisabled(outputAlias, modelId) || isDisabled(staticAlias, modelId) || isDisabled(providerId, modelId)) continue;
         // Hidden behind a studio name: only the studio name is published.
         if (studioTargets.isStudioTarget([providerId, staticAlias, outputAlias], modelId)) continue;
 
