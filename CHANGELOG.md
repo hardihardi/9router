@@ -1,3 +1,50 @@
+# v0.5.197 (2026-10-16) · 2 commits
+
+## What's New
+
+- **Model import shows in the notification bell**: "Importing models" was a
+  local dialog that lived only on the provider page, so closing the tab lost
+  the run and nothing else in the dashboard knew it existed. It now registers
+  as a long task like every other operation - visible in the bell while it
+  runs, with a Completed row when it ends.
+
+## What Was Fixed
+
+- **"Fetching model list" no longer hangs**: the model-list endpoint talked to
+  the provider with no timeout at all, so a stalled upstream left the dashboard
+  spinning for minutes with no error. Every outbound read now races a fixed
+  20-second budget, custom resolvers included, and a timeout answers plainly
+  instead of looking like a crash. The browser also stops waiting on its own
+  request after 20 seconds.
+
+
+# v0.5.196 (2026-10-16) · 2 commits
+
+## What Was Fixed
+
+- **Dismiss control on task rows**: the running-work rows in the bell ("Running
+  in background" / "Completed") had no remove button while notice rows did.
+  Every task row now carries its own X. A store-backed row retires through the
+  store so it stays gone; a row for a run whose page is closed is hidden for
+  that run only.
+
+
+# v0.5.195 (2026-10-16) · 2 commits
+
+## What's New
+
+- **Finished runs stay visible in the bell**: a completed long task keeps its
+  row for 30 seconds, marked `Completed` in green, before it retires itself -
+  so a finished import is announced instead of vanishing silently.
+- **A green dot on the bell**: while any operation is running, a small green
+  dot sits on the bell icon (top right), clear of the unread badge, so the
+  work in flight is known without opening the panel.
+- **Per-notice controls**: every notice row carries two buttons - mark as read
+  (check) and remove (trash). The existing "Mark all read" header action is
+  unchanged, and removing keeps the dedupe row so a condition that is still
+  true is announced again.
+
+
 # v0.5.194 (2026-10-16) · 2 commits
 
 ## What Was Fixed

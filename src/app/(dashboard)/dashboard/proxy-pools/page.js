@@ -103,7 +103,11 @@ export default function ProxyPoolsPage() {
   const [netlifyForm, setNetlifyForm] = useState({ netlifyToken: "", projectName: "netlify-relay" });
   const [saving, setSaving] = useState(false);
   const [importing, setImporting] = useState(() =>
-    useTaskStore.getState().tasks.some((t) => t.id === PROXY_IMPORT_TASK)
+    // A finished run lingers in the store marked `done` (see taskStore.finish),
+    // so presence alone no longer means the import is in flight.
+    useTaskStore
+      .getState()
+      .tasks.some((t) => t.id === PROXY_IMPORT_TASK && t.state !== "done")
   );
   const importAbortRef = useRef(null);
   const [deploying, setDeploying] = useState(false);
