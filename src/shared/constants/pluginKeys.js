@@ -14,4 +14,10 @@ export const CUSTOM_PLUGIN_KEYS = [
   "contextSqueezer",
   "openaiToolBridge",
   "antiSlop",
+  "agentFse",
+  "agentQa",
+  "agentSecurity",
+  "agentRea",
+  "agentSqli",
+  "agentRag",
 ];

@@ -84,7 +84,55 @@ const PLUGIN_MARKS = {
       <path d="M8 8.6h8" />
     </>
   ),
-};
+
+  // Agent roles: a robot head, differentiated by the visor accent drawn per role.
+  agentFse: (
+    <>
+      <rect x="5" y="8" width="14" height="10" rx="2.5" />
+      <path d="M12 8V4.5" /><circle cx="12" cy="3.6" r="1.1" fill="currentColor" stroke="none" />
+      <path d="M9 12.2h2.2" /><path d="M12.8 12.2H15" />
+      <path d="M9.5 15h5" />
+    </>
+  ),
+  agentQa: (
+    <>
+      <rect x="5" y="8" width="14" height="10" rx="2.5" />
+      <path d="M12 8V4.5" /><circle cx="12" cy="3.6" r="1.1" fill="currentColor" stroke="none" />
+      <path d="M9 12.5l1.8 1.8 3.4-3.6" />
+      <path d="M9.5 15.2h5" />
+    </>
+  ),
+  agentSecurity: (
+    <>
+      <rect x="5" y="8" width="14" height="10" rx="2.5" />
+      <path d="M12 8V4.5" /><circle cx="12" cy="3.6" r="1.1" fill="currentColor" stroke="none" />
+      <path d="M8.5 12h7" /><path d="M12 12v3.2" /><path d="M9.8 15.2h4.4" />
+    </>
+  ),
+  agentRea: (
+    <>
+      <rect x="5" y="8" width="14" height="10" rx="2.5" />
+      <path d="M12 8V4.5" /><circle cx="12" cy="3.6" r="1.1" fill="currentColor" stroke="none" />
+      <path d="M8.5 11.5L10.5 13.5L8.5 15.5" />
+      <path d="M13.5 11.5L15.5 13.5L13.5 15.5" />
+    </>
+  ),
+  agentSqli: (
+    <>
+      <rect x="5" y="8" width="14" height="10" rx="2.5" />
+      <path d="M12 8V4.5" /><circle cx="12" cy="3.6" r="1.1" fill="currentColor" stroke="none" />
+      <path d="M9 13.5h2" /><path d="M12.8 12.8l2.4 2.4M15.2 12.8l-2.4 2.4" />
+    </>
+  ),
+  agentRag: (
+    <>
+      <rect x="5" y="8" width="14" height="10" rx="2.5" />
+      <path d="M12 8V4.5" /><circle cx="12" cy="3.6" r="1.1" fill="currentColor" stroke="none" />
+      <circle cx="9.3" cy="12.6" r="1.4" /><circle cx="14.7" cy="12.6" r="1.4" />
+      <path d="M10.7 12.6h2.6" />
+    </>
+  ),
+  };
 
 /**
  * One wrapper for every mark so stroke weight, caps and sizing live in one place
