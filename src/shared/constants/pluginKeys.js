@@ -20,4 +20,8 @@ export const CUSTOM_PLUGIN_KEYS = [
   "agentRea",
   "agentSqli",
   "agentRag",
+  "tempGuard",
+  "outputCap",
+  "stopGuard",
+  "promptBase",
 ];

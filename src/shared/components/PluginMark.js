@@ -132,6 +132,38 @@ const PLUGIN_MARKS = {
       <path d="M10.7 12.6h2.6" />
     </>
   ),
+  
+  // Temperature Guard: a thermometer inside a brace - clamped, controlled heat.
+  tempGuard: (
+    <>
+      <path d="M10 4.5h4" /><path d="M12 4.5v9" />
+      <circle cx="12" cy="16.5" r="2.5" />
+      <path d="M12 14v-0.5" />
+    </>
+  ),
+  // Output Cap: a full gauge with a clamp bar across it.
+  outputCap: (
+    <>
+      <path d="M4.5 14.5h15" />
+      <path d="M6.5 14.5a5.5 5.5 0 0 1 11 0" />
+      <path d="M12 14.5L15 10" />
+      <path d="M4.5 18h15" />
+    </>
+  ),
+  // Stop Sequence Guard: an octagon stop sign outline with a slash breaking the run.
+  stopGuard: (
+    <>
+      <path d="M9 4.5h6l4.5 4.5v6L15 19.5H9L4.5 15V9z" />
+      <path d="M9.5 9.5l5 5" />
+    </>
+  ),
+  // Prompt Base: an open book with a grounding pin at the spine.
+  promptBase: (
+    <>
+      <path d="M12 5.5c-1.8-1.2-4-1.5-7-1.2v12.4c3-.3 5.2 0 7 1.2 1.8-1.2 4-1.5 7-1.2V4.3c-3-.3-5.2 0-7 1.2z" />
+      <path d="M12 5.5v12.4" />
+    </>
+  ),
   };
 
 /**

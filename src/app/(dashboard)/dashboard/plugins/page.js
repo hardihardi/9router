@@ -58,6 +58,35 @@ const PLUGINS = [
       "Retrieval-augmented generation agent: chunking, embeddings, vector stores, reranking and evaluation. Routes to long-context models (OpenCode, abliterated-large, Gemini, Claude).",
   },
   {
+    key: "tempGuard",
+    title: "Temperature Guard",
+    iconColor: "text-orange-400",
+    description:
+      "Locks sampling temperature to 0.2 for the selected models, producing near-deterministic output for coding, review and analysis workloads. Never raises a temperature the caller already set lower.",
+  },
+  {
+    key: "outputCap",
+    title: "Output Cap",
+    iconColor: "text-teal-400",
+    description:
+      "Applies a hard 4,096-token ceiling on completions for the selected models, preventing runaway generations and runaway token spend. An existing smaller limit from the caller is respected.",
+  },
+  {
+    key: "stopGuard",
+    title: "Stop Sequence Guard",
+    iconColor: "text-lime-400",
+    description:
+      "Injects safe stop sequences (tool-call and function-result closers, blank-line runs) so structured outputs terminate cleanly instead of rambling into filler. Caller-provided stops are preserved.",
+  },
+  {
+    key: "promptBase",
+    title: "Prompt Base",
+    iconColor: "text-indigo-400",
+    description:
+      "Adds an honest grounding baseline to every request: answer from provided context, state uncertainty plainly instead of guessing, and cite the supporting part of the context when one exists. Anti-hallucination without inventing a persona.",
+  },
+
+  {
     key: "imageVision",
     title: "Image Vision",
     iconColor: "text-sky-400",
