@@ -497,13 +497,13 @@ export class OpenCodeExecutor extends BaseExecutor {
       "Content-Type": "application/json",
       "Authorization": auth,
       "User-Agent": isOpencodeDownstream ? downstreamUa : OPENCODE_UA,
-      "x-opencode-client": lower["x-opencode-client"] || "desktop",
+      "x-opencode-client": lower["x-opencode-client"] || "cli",
+      "x-opencode-project": lower["x-opencode-project"] || "global",
       "x-opencode-session": session,
       "x-opencode-session-id": session,
       "x-session-affinity": session,
       "x-session-id": session,
-      "x-opencode-project": lower["x-opencode-project"] || "global",
-      "Accept": stream ? "text/event-stream" : "*/*",
+      "Accept": "text/event-stream",
     };
     const downstreamReq = normalizeRequestId(lower["x-opencode-request"]);
     if (downstreamReq) {

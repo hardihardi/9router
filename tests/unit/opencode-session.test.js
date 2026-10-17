@@ -345,7 +345,7 @@ describe("OpenCode Stable Session Reuse (429 follow-up)", () => {
     });
     expect(chatWithTools.tool_choice).toBe("auto");
     expect(chatWithTools.tools.map((t) => t.function?.name)).toEqual([
-      "read", "shell",
+      "Read", "Shell", "read", "shell",
     ]);
 
     const chatPartial = executor.transformRequest("nemotron-3-ultra-free", {
@@ -355,7 +355,7 @@ describe("OpenCode Stable Session Reuse (429 follow-up)", () => {
       ],
     });
     expect(chatPartial.tools.map((t) => t.function?.name)).toEqual([
-      "read", "shell",
+      "read_client", "read", "shell",
     ]);
     expect(chatPartial.tools[0].function.description).toBe("existing");
   });

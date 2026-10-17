@@ -227,8 +227,9 @@ export class OpenCodeZenExecutor extends DefaultExecutor {
     const downstreamUa = lower["user-agent"] || "";
     headers["Authorization"] = credentials?.apiKey ? `Bearer ${credentials.apiKey}` : "Bearer public";
     headers["User-Agent"] = hasValidOpencodeVersion(downstreamUa) ? downstreamUa : OPENCODE_UA;
-    headers["x-opencode-client"] = lower["x-opencode-client"] || "desktop";
+    headers["x-opencode-client"] = lower["x-opencode-client"] || "cli";
     headers["x-opencode-project"] = lower["x-opencode-project"] || "global";
+    headers["Accept"] = "text/event-stream";
     const prepared = credentials?.[SESSION_FIELD];
     if (prepared) {
       headers[SESSION_HEADER] = prepared;

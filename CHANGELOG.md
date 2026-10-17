@@ -1,3 +1,9 @@
+# v0.5.199 (2026-10-17) · 2 commits
+
+## What Was Fixed
+
+- **OpenCode Free tier header alignment**: Updated OpenCode executors, registry, and catalog sync routes to default `x-opencode-client` to `cli`, enforce `x-opencode-project: global`, session affinity headers, and set `Accept: text/event-stream` across free-tier inference paths.
+
 # v0.5.198 (2026-10-17) · 2 commits
 
 ## What's New
