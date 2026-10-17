@@ -1,3 +1,12 @@
+# v0.5.198 (2026-10-17) · 2 commits
+
+## What's New
+
+- **All dashboard loading flows consolidated into the notification bell**: Every long-running operation in the dashboard is now wired to the central task store instead of living only as isolated or floating corner widgets:
+  - Provider batch tests ("Test All" for OAuth, Free tier, API key, and individual provider connections) now surface in the bell with live status, running indicator, and a 30s Completed row.
+  - Profile database and backup actions (export database, import database with progress tracking, saving auto-backup configuration, and test backups) now sync directly to the notification bell.
+  - Bulk import dialogs (Codex accounts, Grok CLI accounts, and multi-key API key imports) register with the bell task store so progress and completion are announced globally across the app.
+
 # v0.5.197 (2026-10-16) · 2 commits
 
 ## What's New
