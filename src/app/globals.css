@@ -92,20 +92,20 @@ html:not(.fonts-loading) .material-symbols-outlined { opacity: 1; transition: op
   --radius-brand-lg: 14px;
 
   /* Shadows */
-  --shadow-soft: 0 1px 2px 0 rgba(0,0,0,0.04);
-  --shadow-warm: 0 2px 12px -2px rgba(249, 115, 22, 0.18);
-  --shadow-elevated: 0 12px 28px -4px rgba(60, 50, 45, 0.06);
+  --shadow-soft: 0 1px 2px 0 rgb(15,15,25);
+  --shadow-warm: 0 2px 12px -2px rgb(58,34,25);
+  --shadow-elevated: 0 12px 28px -4px rgb(19,18,27);
   --shadow-elev:
-    inset 0 1px 0 0 rgba(255,255,255,0.8),
-    0 1px 2px rgba(15,23,42,0.04),
-    0 12px 36px -8px rgba(15,23,42,0.10);
-  --shadow-focus: 0 0 0 3px rgba(249,115,22,0.18);
+    inset 0 1px 0 0 rgb(207,207,209),
+    0 1px 2px rgb(16,16,27),
+    0 12px 36px -8px rgb(16,17,28);
+  --shadow-focus: 0 0 0 3px rgb(58,34,25);
 
   /* Full-screen dim behind modals and long-task banners. A real variable,
      not a Tailwind bg-black/x utility, so both themes can tune it: the dark
      base is opaque and wants a uniform cut, while glass renders the aurora
      behind the panel and wants a lighter veil that lets the colour through. */
-  --color-scrim: rgba(30, 24, 21, 0.34);
+  --color-scrim: rgb(21,19,24);
 
   /* ---- Derived surfaces: aliases onto the scale above.
      They exist because many components already reference these names
@@ -167,17 +167,17 @@ html:not(.fonts-loading) .material-symbols-outlined { opacity: 1; transition: op
   --color-warning: #fbbf24;
   --color-info: #60a5fa;
 
-  --shadow-soft: 0 1px 2px 0 rgba(0,0,0,0.4);
-  --shadow-warm: 0 2px 12px -2px rgba(249, 115, 22, 0.22);
-  --shadow-elevated: 0 12px 28px -4px rgba(0, 0, 0, 0.55);
+  --shadow-soft: 0 1px 2px 0 rgb(10,10,16);
+  --shadow-warm: 0 2px 12px -2px rgb(67,38,25);
+  --shadow-elevated: 0 12px 28px -4px rgb(7,7,12);
   --shadow-elev:
-    inset 0 1px 0 0 rgba(255,255,255,0.04),
-    0 1px 2px rgba(0,0,0,0.5),
-    0 16px 48px -8px rgba(0,0,0,0.6);
-  --shadow-focus: 0 0 0 3px rgba(249, 115, 22, 0.2);
+    inset 0 1px 0 0 rgb(26,26,35),
+    0 1px 2px rgb(8,8,13),
+    0 16px 48px -8px rgb(6,6,10);
+  --shadow-focus: 0 0 0 3px rgb(63,36,25);
 
   /* Dark scrim: a heavier uniform veil over the opaque base. */
-  --color-scrim: rgba(0, 0, 0, 0.65);
+  --color-scrim: rgb(6,6,9);
 
   color-scheme: dark;
 }
@@ -293,11 +293,11 @@ body {
 
 /* Selection - brand-tinted */
 ::selection {
-  background-color: rgba(249, 115, 22, 0.25);
+  background-color: rgb(74,41,25);
   color: var(--color-primary);
 }
 .dark ::selection {
-  background-color: rgba(249, 115, 22, 0.3);
+  background-color: rgb(86,46,25);
   color: var(--color-brand-300);
 }
 
@@ -314,7 +314,7 @@ input, textarea {
   background: transparent;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(156, 163, 175, 0.3);
+  background-color: rgb(58,60,71);
   border-radius: 20px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
@@ -324,28 +324,28 @@ input, textarea {
 /* Thin horizontal scrollbar - brand colored */
 .scroll-thin-x {
   scrollbar-width: thin;
-  scrollbar-color: rgba(249, 115, 22, 0.55) transparent;
+  scrollbar-color: rgb(144,70,24) transparent;
 }
 .dark .scroll-thin-x {
-  scrollbar-color: rgba(249, 115, 22, 0.55) transparent;
+  scrollbar-color: rgb(144,70,24) transparent;
 }
 .scroll-thin-x::-webkit-scrollbar { height: 3px; }
 .scroll-thin-x::-webkit-scrollbar-track { background: transparent; }
 .scroll-thin-x::-webkit-scrollbar-thumb {
-  background: rgba(249, 115, 22, 0.55);
+  background: rgb(144,70,24);
   border-radius: 3px;
 }
 .dark .scroll-thin-x::-webkit-scrollbar-thumb {
-  background: rgba(249, 115, 22, 0.55);
+  background: rgb(144,70,24);
 }
 
 /* Global thin mac-like scrollbars (overrides clunky Windows/Linux default) */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(120, 120, 120, 0.35) transparent;
+  scrollbar-color: rgb(52,52,59) transparent;
 }
 .dark * {
-  scrollbar-color: rgba(180, 180, 180, 0.3) transparent;
+  scrollbar-color: rgb(65,65,72) transparent;
 }
 *::-webkit-scrollbar {
   width: 8px;
@@ -355,19 +355,19 @@ input, textarea {
   background: transparent;
 }
 *::-webkit-scrollbar-thumb {
-  background-color: rgba(120, 120, 120, 0.35);
+  background-color: rgb(52,52,59);
   border-radius: 9999px;
   border: 2px solid transparent;
   background-clip: padding-box;
 }
 *::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(120, 120, 120, 0.55);
+  background-color: rgb(73,73,78);
 }
 .dark *::-webkit-scrollbar-thumb {
-  background-color: rgba(180, 180, 180, 0.3);
+  background-color: rgb(65,65,72);
 }
 .dark *::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(180, 180, 180, 0.5);
+  background-color: rgb(98,98,103);
 }
 
 /* Reusable elevated card */
@@ -480,12 +480,12 @@ button:disabled,
 
 @keyframes border-glow {
   0%, 100% {
-    box-shadow: 0 0 5px rgba(249, 115, 22, 0.3), 0 0 10px rgba(249, 115, 22, 0.2);
-    border-color: rgba(249, 115, 22, 0.5);
+    box-shadow: 0 0 5px rgb(86,46,25), 0 0 10px rgb(63,36,25);
+    border-color: rgb(132,66,24);
   }
   50% {
-    box-shadow: 0 0 10px rgba(249, 115, 22, 0.5), 0 0 20px rgba(249, 115, 22, 0.3);
-    border-color: rgba(249, 115, 22, 0.8);
+    box-shadow: 0 0 10px rgb(132,66,24), 0 0 20px rgb(86,46,25);
+    border-color: rgb(202,95,23);
   }
 }
 .animate-border-glow { animation: border-glow 2s ease-in-out infinite; }
@@ -537,8 +537,8 @@ button:disabled,
   100% { transform: translateX(220%) skewX(-20deg); }
 }
 @keyframes ctaGlowPulse {
-  0%, 100% { box-shadow: 0 8px 24px -8px rgba(249, 115, 22, 0.45), 0 0 0 0 rgba(249, 115, 22, 0.5); }
-  50% { box-shadow: 0 12px 32px -8px rgba(249, 115, 22, 0.6), 0 0 0 8px rgba(249, 115, 22, 0); }
+  0%, 100% { box-shadow: 0 8px 24px -8px rgb(121,61,24), 0 0 0 0 rgb(132,66,24); }
+  50% { box-shadow: 0 12px 32px -8px rgb(156,75,24), 0 0 0 8px rgb(16,16,26); }
 }
 .btn-cta {
   position: relative;
@@ -553,7 +553,7 @@ button:disabled,
   left: 0;
   width: 50%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+  background: linear-gradient(90deg, transparent, rgb(100,100,106), transparent);
   animation: ctaShimmer 2.8s ease-in-out infinite;
   pointer-events: none;
   z-index: 1;
@@ -564,13 +564,13 @@ button:disabled,
 .dot-grid-bg {
   background-color: var(--color-bg);
   background-image:
-    radial-gradient(circle at 15% 20%, rgba(249, 115, 22, 0.10) 0%, transparent 40%),
-    radial-gradient(circle at 85% 80%, rgba(249, 115, 22, 0.06) 0%, transparent 40%);
+    radial-gradient(circle at 15% 20%, rgb(39,26,26) 0%, transparent 40%),
+    radial-gradient(circle at 85% 80%, rgb(30,22,26) 0%, transparent 40%);
 }
 .dark .dot-grid-bg {
   background-image:
-    radial-gradient(circle at 15% 20%, rgba(249, 115, 22, 0.18) 0%, transparent 40%),
-    radial-gradient(circle at 85% 80%, rgba(249, 115, 22, 0.10) 0%, transparent 40%);
+    radial-gradient(circle at 15% 20%, rgb(58,34,25) 0%, transparent 40%),
+    radial-gradient(circle at 85% 80%, rgb(39,26,26) 0%, transparent 40%);
 }
 
 /* Landing-style faint grid overlay (use absolute pos inside relative parent) */
@@ -594,16 +594,16 @@ button:disabled,
     box-shadow:
       0 0 8px #fde047,
       0 0 20px color-mix(in srgb, var(--color-primary) 65%, transparent),
-      0 0 32px rgba(34, 211, 238, 0.4),
-      inset 0 0 10px rgba(253, 224, 71, 0.3);
+      0 0 32px rgb(23,94,111),
+      inset 0 0 10px rgb(87,78,40);
   }
   50% {
     transform: scale(1.06);
     box-shadow:
       0 0 14px #fef08a,
       0 0 28px #facc15,
-      0 0 44px rgba(34, 211, 238, 0.6),
-      inset 0 0 14px rgba(255, 255, 255, 0.25);
+      0 0 44px rgb(27,133,153),
+      inset 0 0 14px rgb(76,76,83);
   }
 }
 @keyframes topology-router-icon-shake {
@@ -635,7 +635,7 @@ button:disabled,
   animation: topology-router-label-flicker 0.7s ease-in-out infinite;
 }
 .topology-router-badge {
-  box-shadow: 0 0 10px #fde047, 0 0 16px rgba(34, 211, 238, 0.6);
+  box-shadow: 0 0 10px #fde047, 0 0 16px rgb(27,133,153);
 }
 .topology-edge-kame {
   stroke-dasharray: 8 6;
@@ -737,8 +737,8 @@ button:disabled,
 }
 .dark.glass body {
   background-image:
-    radial-gradient(42rem 30rem at 8% 6%, rgba(249, 115, 22, 0.10), transparent 60%),
-    radial-gradient(40rem 28rem at 94% 8%, rgba(249, 115, 22, 0.06), transparent 58%);
+    radial-gradient(42rem 30rem at 8% 6%, rgb(39,26,26), transparent 60%),
+    radial-gradient(40rem 28rem at 94% 8%, rgb(30,22,26), transparent 58%);
   background-attachment: fixed;
 }
 
@@ -765,7 +765,7 @@ button:disabled,
 }
 
 .dark.glass {
-  --color-scrim: rgba(8, 11, 16, 0.55);
+  --color-scrim: rgb(12,13,20);
 }
 
 /* Derived surfaces follow the frost ladder the explicit utilities above
